@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Large datasets (download separately)
+CRIS.pytorch/datasets/images/
+CRIS.pytorch/datasets/masks/
+CRIS.pytorch/datasets/lmdb/
+CRIS.pytorch/datasets/anns/
+CRIS.pytorch/datasets/*.zip
+
+# Pretrained weights (download separately)
+CRIS.pytorch/pretrain/*.pt
+CRIS.pytorch/pretrain/*.pth
+CRIS.pytorch/pretrain/*.bin
+
+# Training outputs (keep config, ignore weights)
+CRIS.pytorch/exp/*/
+*.pth
+*.pt
+!CRIS.pytorch/exp/.gitkeep
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Claude Code
+.claude/memory/

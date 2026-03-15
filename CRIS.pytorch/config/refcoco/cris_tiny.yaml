@@ -1,0 +1,53 @@
+# Lightweight test config
+DATA:
+  dataset: refcoco
+  train_lmdb: datasets/lmdb/refcoco_train
+  train_split: train
+  val_lmdb: datasets/lmdb/refcoco/val.lmdb
+  val_split: val
+  mask_root: datasets/masks/refcoco
+TRAIN:
+  clip_pretrain: pretrain/RN50.pt
+  input_size: 224
+  word_len: 17
+  word_dim: 1024
+  vis_dim: 256
+  fpn_in: [512, 1024, 1024]
+  fpn_out: [128, 256, 512]
+  sync_bn: True
+  num_layers: 2
+  num_head: 4
+  dim_ffn: 512
+  dropout: 0.1
+  intermediate: False
+  model_name: cris_lite
+  workers: 0
+  workers_val: 0
+  epochs: 3
+  milestones: [2]
+  start_epoch: 0
+  batch_size: 2
+  batch_size_val: 2
+  base_lr: 0.0001
+  lr_decay: 0.1
+  lr_multi: 0.1
+  weight_decay: 0.
+  max_norm: 0.
+  manual_seed: 42
+  print_freq: 10
+  exp_name: CRIS_Tiny
+  output_folder: exp/refcoco
+  save_freq: 1
+  weight:
+  resume:
+  evaluate: False
+Distributed:
+  dist_url: tcp://localhost:3681
+  dist_backend: nccl
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+TEST:
+  test_split: val-test
+  test_lmdb: datasets/lmdb/refcoco/val.lmdb
+  visualize: False

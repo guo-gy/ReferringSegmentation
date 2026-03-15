@@ -1,0 +1,61 @@
+# CRIS-P: Enhanced CRIS with Cross-Modal Self-Alignment
+# 创新点：跨模态对齐、多尺度注意力
+
+DATA:
+  dataset: refcoco
+  train_lmdb: datasets/lmdb/refcoco_train
+  train_split: train
+  val_lmdb: datasets/lmdb/refcoco/val.lmdb
+  val_split: val
+  mask_root: datasets/masks/refcoco
+TRAIN:
+  # Base Arch
+  clip_pretrain: pretrain/RN50.pt
+  input_size: 416
+  word_len: 17
+  word_dim: 1024
+  vis_dim: 512
+  fpn_in: [512, 1024, 1024]
+  fpn_out: [256, 512, 1024]
+  sync_bn: True
+  # Decoder
+  num_layers: 3
+  num_head: 8
+  dim_ffn: 2048
+  dropout: 0.1
+  intermediate: False
+  # 创新模块配置
+  use_alignment: True  # 启用跨模态对齐
+  use_contrastive: True  # 启用对比学习
+  # Training Setting
+  workers: 32
+  workers_val: 16
+  epochs: 50
+  milestones: [35]
+  start_epoch: 0
+  batch_size: 8  # reduced for 6GB GPU
+  batch_size_val: 8
+  base_lr: 0.0001
+  lr_decay: 0.1
+  lr_multi: 0.1
+  weight_decay: 0.
+  max_norm: 0.
+  manual_seed: 0
+  print_freq: 100
+  # Resume & Save
+  exp_name: CRIS_P_R50
+  output_folder: exp/refcoco
+  save_freq: 1
+  weight:
+  resume:
+  evaluate: True
+Distributed:
+  dist_url: tcp://localhost:3681
+  dist_backend: 'nccl'
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+TEST:
+  test_split: val-test
+  test_lmdb: datasets/lmdb/refcoco/val.lmdb
+  visualize: False
